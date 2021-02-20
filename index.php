@@ -5,7 +5,7 @@ if(isset($updateArray["message"]["text"])){
 $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
-
+/*
 $arrayTexto[2] = substr($arrayTexto[2], 8);
 $arrayTexto[3] = preg_split("/\s+/", $arrayTexto[3]);
 
@@ -27,7 +27,7 @@ if($arrayTexto[0] == "Reabertura"){
 	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[2]', data='$arrayTexto[3]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[9]' WHERE time1='$time1[0]' and time2='$time2[0]'";
 	$result = pg_query($db_handle, $query);
 
- 
+ */
 }
 
 pg_close($db_handle);
