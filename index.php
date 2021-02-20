@@ -1,14 +1,7 @@
 <?php
-$texto = "Reabertura
-Resultado Final
-🇧🇷 Campeonato Maranhense
-Sábado 20/02 15:30
-
-Bacabal EC @ 13.00
-Empate @ 9.00
-Sampaio Correa @ 1.08
-
-https://www.bet365.com/#/AC/B1/C1/D8/E99114714/F3/";
+$update = file_get_contents("php://input");
+$updateArray = json_decode($update, TRUE);
+$texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
 $arrayTexto[2] = substr($arrayTexto[2], 8);
@@ -36,5 +29,10 @@ if($arrayTexto[0] == "Reabertura"){
 }
 
 pg_close($db_handle);
+ob_start();
+var_dump($texto);
+$input = ob_get_contents();
+ob_end_clean();
+file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
 
 ?>
