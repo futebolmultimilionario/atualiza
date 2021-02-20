@@ -28,9 +28,9 @@ if($arrayTexto[0] == "Reabertura"){
 	$result = pg_query($db_handle, $query);
 
  
-}*/
+}
 
-pg_close($db_handle);
+pg_close($db_handle);*/
 ob_start();
 var_dump($arrayTexto);
 $input = ob_get_contents();
