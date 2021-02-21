@@ -6,6 +6,12 @@ $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
 
+ob_start();
+var_dump($arrayTexto);
+$input = ob_get_contents();
+ob_end_clean();
+file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);	
+	
 $arrayTexto[0] = substr($arrayTexto[0], 8);
 $arrayTexto[2] = preg_split("/\s+/", $arrayTexto[2]);
 
@@ -18,7 +24,7 @@ $arrayTexto[2] = strtotime(DateTime::createFromFormat("d/m/Y H:i", $arrayTexto[2
 
 $db_handle = pg_connect("host=ec2-54-164-241-193.compute-1.amazonaws.com dbname=detfg6vttnaua8 port=5432 user=kgsgrroozfzpnv password=a2ec0dd00478fd02c6395df74d3e82adc94632e51ea2c1cca2ba94f988e591f5");
 
-if($arrayTexto[0] == "Abertura"){
+if($updateArray["message"]["chat"]["id"] == "-516528307"){
 	$query = "INSERT INTO tabelateste (campeonato, data, time1, oddtime1, oddempate, time2, oddtime2, link) VALUES ('$arrayTexto[0]', '$arrayTexto[2]', '$time1[0]', '$time1[1]', '$empate[1]', '$time2[0]', '$time2[1]', '$arrayTexto[8]')";
 	$result = pg_query($db_handle, $query);
 
@@ -31,11 +37,7 @@ if($arrayTexto[0] == "Reabertura"){
 }
 
 pg_close($db_handle);
-ob_start();
-var_dump($updateArray);
-$input = ob_get_contents();
-ob_end_clean();
-file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
+
 }else{
 	echo "Ok!";
 }
