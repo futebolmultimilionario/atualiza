@@ -32,7 +32,7 @@ if($arrayTexto[0] == "Reabertura"){
 
 pg_close($db_handle);
 ob_start();
-var_dump($arrayTexto);
+var_dump($updateArray);
 $input = ob_get_contents();
 ob_end_clean();
 file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
