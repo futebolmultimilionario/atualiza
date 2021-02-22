@@ -5,6 +5,7 @@ if(isset($updateArray["message"]["text"])){
 $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
+if(isset($arrayTexto[8])){
 //
 ob_start();
 var_dump($arrayTexto);
@@ -43,5 +44,6 @@ pg_close($db_handle);
 
 }else{
 	echo "Ok!";
+}
 }
 ?>
