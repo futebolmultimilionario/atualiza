@@ -5,7 +5,7 @@ if(isset($updateArray["message"]["text"])){
 $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
-
+//
 ob_start();
 var_dump($arrayTexto);
 $input = ob_get_contents();
