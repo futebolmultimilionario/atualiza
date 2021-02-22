@@ -26,12 +26,8 @@ $db_handle = pg_connect("host=ec2-54-164-241-193.compute-1.amazonaws.com dbname=
 $selecionar = "SELECT * FROM tabelateste WHERE time1='$time1[0]' and time2='$time2[0]'";
 $buscar = pg_query($db_handle, $selecionar);
 $arrayBuscar = pg_fetch_assoc($buscar);
-ob_start();
-var_dump($arrayBuscar);
-$input = ob_get_contents();
-ob_end_clean();
-file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
-if(isset($arrayBuscar[0])){
+
+if(isset($arrayBuscar["time1"])){
 	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[0]', data='$arrayTexto[2]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[8]' WHERE time1='$time1[0]' and time2='$time2[0]'";
 	$result = pg_query($db_handle, $query);
 	$agora = time();
