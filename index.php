@@ -11,7 +11,7 @@ var_dump($arrayTexto);
 $input = ob_get_contents();
 ob_end_clean();
 file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);	
-//	
+	
 $arrayTexto[0] = substr($arrayTexto[0], 8);
 $arrayTexto[2] = preg_split("/\s+/", $arrayTexto[2]);
 
@@ -23,15 +23,17 @@ $empate = preg_split("/\b @ \b/iu", $arrayTexto[5]);
 $arrayTexto[2] = strtotime(DateTime::createFromFormat("d/m/Y H:i", $arrayTexto[2][1]."/2021 ".$arrayTexto[2][2])->format('m/d/Y H:i:s')); // define data desejada
 
 $db_handle = pg_connect("host=ec2-54-164-241-193.compute-1.amazonaws.com dbname=detfg6vttnaua8 port=5432 user=kgsgrroozfzpnv password=a2ec0dd00478fd02c6395df74d3e82adc94632e51ea2c1cca2ba94f988e591f5");
+$selecionar = "SELECT * FROM tabelateste WHERE time1='$time1[0]' and time2='$time2[0]'";
+$buscar = pg_query($db_handle, $selecionar);
+$arrayBuscar = pg_fetch_assoc($buscar);
 
-if($updateArray["message"]["chat"]["id"] == "-516528307"){
-	$query = "INSERT INTO tabelateste (campeonato, data, time1, oddtime1, oddempate, time2, oddtime2, link) VALUES ('$arrayTexto[0]', '$arrayTexto[2]', '$time1[0]', '$time1[1]', '$empate[1]', '$time2[0]', '$time2[1]', '$arrayTexto[8]')";
+if(isset($arrayBuscar[0])){
+	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[0]', data='$arrayTexto[2]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[8]' WHERE time1='$time1[0]' and time2='$time2[0]'";
 	$result = pg_query($db_handle, $query);
 	$agora = time();
 	$deletaantigos = pg_query($db_handle, "DELETE FROM tabelateste WHERE data < '$agora'");
-}
-if($updateArray["message"]["chat"]["id"] == "-517543189"){
-	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[0]', data='$arrayTexto[2]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[8]' WHERE time1='$time1[0]' and time2='$time2[0]'";
+}else{
+	$query = "INSERT INTO tabelateste (campeonato, data, time1, oddtime1, oddempate, time2, oddtime2, link) VALUES ('$arrayTexto[0]', '$arrayTexto[2]', '$time1[0]', '$time1[1]', '$empate[1]', '$time2[0]', '$time2[1]', '$arrayTexto[8]')";
 	$result = pg_query($db_handle, $query);
 	$agora = time();
 	$deletaantigos = pg_query($db_handle, "DELETE FROM tabelateste WHERE data < '$agora'"); 
