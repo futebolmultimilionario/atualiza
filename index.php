@@ -28,14 +28,14 @@ $buscar = pg_query($db_handle, $selecionar);
 $arrayBuscar = pg_fetch_assoc($buscar);
 
 if(isset($arrayBuscar["time1"])){
-	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[0]', data='$arrayTexto[2]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[8]' WHERE time1='$time1[0]' and time2='$time2[0]'";
-	$result = pg_query($db_handle, $query);
 	$agora = time();
+	$query = "UPDATE tabelateste SET campeonato='$arrayTexto[0]', hora='$agora', data='$arrayTexto[2]', oddtime1='$time1[1]', oddempate='$empate[1]', time2='$time2[0]', oddtime2='$time2[1]', link='$arrayTexto[8]' WHERE time1='$time1[0]' and time2='$time2[0]'";
+	$result = pg_query($db_handle, $query);
 	$deletaantigos = pg_query($db_handle, "DELETE FROM tabelateste WHERE data < '$agora'");
 }else{
-	$query = "INSERT INTO tabelateste (campeonato, data, time1, oddtime1, oddempate, time2, oddtime2, link) VALUES ('$arrayTexto[0]', '$arrayTexto[2]', '$time1[0]', '$time1[1]', '$empate[1]', '$time2[0]', '$time2[1]', '$arrayTexto[8]')";
-	$result = pg_query($db_handle, $query);
 	$agora = time();
+	$query = "INSERT INTO tabelateste (campeonato, hora, data, time1, oddtime1, oddempate, time2, oddtime2, link) VALUES ('$arrayTexto[0]', '$agora', '$arrayTexto[2]', '$time1[0]', '$time1[1]', '$empate[1]', '$time2[0]', '$time2[1]', '$arrayTexto[8]')";
+	$result = pg_query($db_handle, $query);
 	$deletaantigos = pg_query($db_handle, "DELETE FROM tabelateste WHERE data < '$agora'"); 
 }
 
