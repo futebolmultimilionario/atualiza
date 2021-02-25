@@ -1,16 +1,17 @@
 <?php
 $update = file_get_contents("php://input");
 $updateArray = json_decode($update, TRUE);
+ob_start();
+var_dump($updateArray);
+$input = ob_get_contents();
+ob_end_clean();
+file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
 if(isset($updateArray["message"]["text"])){
 $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
 
-ob_start();
-var_dump($arrayTexto);
-$input = ob_get_contents();
-ob_end_clean();
-file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);	
+	
 	
 $arrayTexto[0] = substr($arrayTexto[0], 8);
 $arrayTexto[2] = preg_split("/\s+/", $arrayTexto[2]);
