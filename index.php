@@ -6,7 +6,7 @@ var_dump($updateArray);
 $input = ob_get_contents();
 ob_end_clean();
 file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
-if(isset($updateArray["message"]["text"]) && strpos($updateArray["message"]["text"], "Empate") !== false){
+if(isset($updateArray["message"]["text"]) && strpos($updateArray["message"]["text"], "www.bet365.com") !== false){
 $texto = $updateArray["message"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
