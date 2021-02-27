@@ -6,8 +6,8 @@ var_dump($updateArray);
 $input = ob_get_contents();
 ob_end_clean();
 file_put_contents('input_requests.log',$input.PHP_EOL,FILE_APPEND);
-if(isset($updateArray["message"]["text"]) && strpos($updateArray["message"]["text"], "www.bet365.com") !== false){
-$texto = $updateArray["message"]["text"];
+if(isset($updateArray["channel_post"]["text"]) && strpos($updateArray["channel_post"]["text"], "www.bet365.com") !== false){
+$texto = $updateArray["channel_post"]["text"];
 
 $arrayTexto = preg_split("/\r\n|\n|\r/", $texto);
 
