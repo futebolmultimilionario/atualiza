@@ -20,7 +20,7 @@ $time1 = preg_split("/\b @ \b/iu", $arrayTexto[4]);
 $time2 = preg_split("/\b @ \b/iu", $arrayTexto[6]);
 
 $empate = preg_split("/\b @ \b/iu", $arrayTexto[5]);
-
+if(array_key_exists(2, $arrayTexto[2])){
 $arrayTexto[2] = strtotime(DateTime::createFromFormat("d/m/Y H:i", $arrayTexto[2][1]."/2021 ".$arrayTexto[2][2])->format('m/d/Y H:i:s'))+10800; // define data desejada
 
 $db_handle = pg_connect("host=ec2-54-164-241-193.compute-1.amazonaws.com dbname=detfg6vttnaua8 port=5432 user=kgsgrroozfzpnv password=a2ec0dd00478fd02c6395df74d3e82adc94632e51ea2c1cca2ba94f988e591f5");
@@ -41,7 +41,7 @@ if(isset($arrayBuscar["time1"])){
 }
 
 pg_close($db_handle);
-
+}
 }else{
 	echo "Ok!";
 }
